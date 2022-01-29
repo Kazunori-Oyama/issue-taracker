@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Issues from "../views/Issues.vue";
+import IssueForm from "../views/IssueForm.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: "/issues",
     name: "Issues",
     component: Issues,
+  },
+  {
+    path: "/issues/:issue_id?/edit",
+    name: "issue_edit",
+    component: IssueForm,
   },
   {
     path: "/about",
