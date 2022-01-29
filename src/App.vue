@@ -4,9 +4,10 @@
       <v-app-bar-nav-icon @click.stop="toggleSideMenu"></v-app-bar-nav-icon>
       <v-toolbar-title>Issue Tracker</v-toolbar-title>
     </v-app-bar>
+    <SideNav></SideNav>
 
-    <v-content>
-      <SideNav></SideNav>
+    <v-content fluid fill-height align-start>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
