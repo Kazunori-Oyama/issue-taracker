@@ -13,10 +13,11 @@
                 v-model="issue.issueName"
                 label="課題タイトル"
               ></v-text-field>
-              <v-text-field
+              <v-select
+                :items="shareStates"
                 v-model="issue.shareState"
                 label="共有状況"
-              ></v-text-field>
+              ></v-select>
               <v-text-field
                 v-model="issue.taskVolume"
                 label="作業ボリューム"
@@ -37,30 +38,122 @@
                 v-model="issue.incharge"
                 label="担当者"
               ></v-text-field>
-              <v-text-field
-                v-model="issue.executeDate"
-                label="実施日"
-              ></v-text-field>
-              <v-text-field
-                v-model="issue.retroDate"
-                label="振り返り日"
-              ></v-text-field>
-              <v-text-field
-                v-model="issue.issueDetail"
-                label="課題詳細"
-              ></v-text-field>
-              <v-text-field
-                v-model="issue.solution"
-                label="解決方法"
-              ></v-text-field>
-              <v-text-field v-model="issue.expect" label="期待"></v-text-field>
-              <v-text-field v-model="issue.memos" label="メモ"></v-text-field>
-              <v-text-field
-                v-model="issue.direction"
-                label="実施方針"
-              ></v-text-field>
-              <v-text-field v-model="issue.result" label="結果"></v-text-field>
 
+              <v-dialog
+                ref="dialog"
+                v-model="executeDateModal"
+                :return-value.sync="executeDate"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="executeDate"
+                    label="実施日"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="executeDate" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click="executeDateModal = false">
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.dialog.save(executeDate)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-dialog>
+
+              <v-dialog
+                ref="dialog2"
+                v-model="retroDateModal"
+                :return-value.sync="retroDate"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="retroDate"
+                    label="振り返り日"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="retroDate" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click="retroDateModal = false">
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.dialog2.save(retroDate)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-dialog>
+              <v-textarea
+                auto-grow
+                row-height="3"
+                name="issueDetail"
+                label="課題詳細"
+                value=""
+                hint="Hint text"
+                v-model="issue.issueDetail"
+              ></v-textarea>
+              <v-textarea
+                auto-grow
+                row-height="3"
+                name="solution"
+                label="解決方法"
+                value=""
+                hint="Hint text"
+                v-model="issue.solution"
+              ></v-textarea>
+              <v-textarea
+                auto-grow
+                row-height="3"
+                name="expect"
+                label="期待"
+                value=""
+                hint="Hint text"
+                v-model="issue.expect"
+              ></v-textarea>
+              <v-textarea
+                auto-grow
+                row-height="3"
+                name="memo"
+                label="メモ"
+                value=""
+                hint="Hint text"
+                v-model="issue.memo"
+              ></v-textarea>
+              <v-textarea
+                auto-grow
+                row-height="3"
+                name="direction"
+                label="方針"
+                value=""
+                hint="Hint text"
+                v-model="issue.direction"
+              ></v-textarea>
+              <v-textarea
+                auto-grow
+                row-height="3"
+                name="result"
+                label="結果"
+                value=""
+                hint="Hint text"
+                v-model="issue.result"
+              ></v-textarea>
               <div class="text-center">
                 <v-btn @click="$router.push({ name: 'issues' })"
                   >キャンセル</v-btn
@@ -79,6 +172,17 @@
 export default {
   data() {
     return {
+      shareStates: ["未共有", "共有済み", "議論済み"],
+      executeDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      retroDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+
+      executeDateModal: false,
+      retroDateModal: false,
+
       issue: {},
     };
   },
