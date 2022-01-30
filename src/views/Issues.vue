@@ -39,6 +39,9 @@
 
 <script>
 export default {
+  created() {
+    this.issues = this.$store.state.issues;
+  },
   data() {
     return {
       headers: [
@@ -58,68 +61,7 @@ export default {
         { text: "実施方針", value: "direction" },
         { text: "結果", value: "result" },
       ],
-      issues: [
-        {
-          issueName: "資料ダウンロードのコンバージョン設定",
-          shareState: "共有済み",
-          taskVolume: "6",
-          effectivity: "6",
-          priority: "1",
-          status: "ToDo",
-          incharge: "大山",
-          excuteDate: "12/1",
-          retroDate: "1/1",
-          issueDetail:
-            "コンテンツが少いため、強化することにより集客および意思決定に改善の余地がある",
-          solution: "各企業へ打診し、掲載する",
-          expect:
-            "コンテンツが拡充されることにより、より信頼性が高まりCV率に寄与する。",
-          memos:
-            "申込書にチェック項目を作るなど（この場合、掲載を拒否するチェックの方がよい）",
-          direction: "未定",
-          result: "PV10000増加",
-        },
-        {
-          issueName: "資料ダウンロードのコンバージョン設定",
-          shareState: "共有済み",
-          taskVolume: "6",
-          effectivity: "6",
-          priority: "1",
-          status: "ToDo",
-          incharge: "大山",
-          excuteDate: "12/1",
-          retroDate: "1/1",
-          issueDetail:
-            "コンテンツが少いため、強化することにより集客および意思決定に改善の余地がある",
-          solution: "各企業へ打診し、掲載する",
-          expect:
-            "コンテンツが拡充されることにより、より信頼性が高まりCV率に寄与する。",
-          memos:
-            "申込書にチェック項目を作るなど（この場合、掲載を拒否するチェックの方がよい）",
-          direction: "未定",
-          result: "PV10000増加",
-        },
-        {
-          issueName: "資料ダウンロードのコンバージョン設定",
-          shareState: "共有済み",
-          taskVolume: "6",
-          effectivity: "6",
-          priority: "1",
-          status: "ToDo",
-          incharge: "大山",
-          excuteDate: "12/1",
-          retroDate: "1/1",
-          issueDetail:
-            "コンテンツが少いため、強化することにより集客および意思決定に改善の余地がある",
-          solution: "各企業へ打診し、掲載する",
-          expect:
-            "コンテンツが拡充されることにより、より信頼性が高まりCV率に寄与する。",
-          memos:
-            "申込書にチェック項目を作るなど（この場合、掲載を拒否するチェックの方がよい）",
-          direction: "未定",
-          result: "PV10000増加",
-        },
-      ],
+      issues: [],
     };
   },
 };

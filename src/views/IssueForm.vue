@@ -18,14 +18,46 @@
                 v-model="issue.shareState"
                 label="共有状況"
               ></v-select>
-              <v-text-field
+              <v-subheader>作業ボリューム見込み</v-subheader>
+              <v-slider
                 v-model="issue.taskVolume"
-                label="作業ボリューム"
-              ></v-text-field>
-              <v-text-field
+                class="align-center"
+                :max="max"
+                :min="min"
+                hide-details
+              >
+                <template v-slot:append>
+                  <v-text-field
+                    v-model="issue.taskVolume"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 60px"
+                  ></v-text-field>
+                </template>
+              </v-slider>
+
+              <v-subheader>効果見込み</v-subheader>
+              <v-slider
                 v-model="issue.effectivity"
-                label="効果見込み"
-              ></v-text-field>
+                class="align-center"
+                :max="max"
+                :min="min"
+                hide-details
+              >
+                <template v-slot:append>
+                  <v-text-field
+                    v-model="issue.effectivity"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 60px"
+                  ></v-text-field>
+                </template>
+              </v-slider>
+
               <v-text-field
                 v-model="issue.priority"
                 label="優先度"
@@ -158,7 +190,7 @@
                 <v-btn @click="$router.push({ name: 'issues' })"
                   >キャンセル</v-btn
                 >
-                <v-btn color="info" class="ml-2">保存</v-btn>
+                <v-btn color="info" class="ml-2" @click="submit()">保存</v-btn>
               </div>
             </v-form>
           </v-card-text>
@@ -169,10 +201,15 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
       shareStates: ["未共有", "共有済み", "議論済み"],
+
+      min: 0,
+      max: 6,
+      slider: 0,
       executeDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
@@ -185,6 +222,14 @@ export default {
 
       issue: {},
     };
+  },
+  methods: {
+    submit() {
+      this.addIssue(this.issue);
+      this.$router.push({ name: "Issues" });
+      this.issue = {};
+    },
+    ...mapActions(["addIssue"]),
   },
 };
 </script>
