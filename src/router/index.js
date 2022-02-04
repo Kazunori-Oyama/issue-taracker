@@ -11,16 +11,25 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/issues",
     name: "Issues",
     component: Issues,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/issues/:issue_id?/edit",
     name: "issue_edit",
     component: IssueForm,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/about",

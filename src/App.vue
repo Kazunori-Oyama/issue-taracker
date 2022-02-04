@@ -6,9 +6,9 @@
     </v-app-bar>
     <SideNav></SideNav>
 
-    <v-content fluid fill-height align-start>
+    <v-main fluid fill-height align-start>
       <router-view></router-view>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -26,6 +26,9 @@ export default {
   }),
   methods: {
     ...mapActions(["toggleSideMenu"]),
+  },
+  created() {
+    console.log("env.local", process.env.VUE_APP_APIKEY);
   },
 };
 </script>

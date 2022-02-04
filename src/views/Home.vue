@@ -1,15 +1,24 @@
 <template>
-  <hello-world />
+  <v-container text-center justify-center>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <h1>Issue Tracker</h1>
+        <p>Googleアカウントで利用できます。</p>
+      </v-flex>
+
+      <v-flex xs12 mt-5>
+        <v-btn color="info" @click="login">Googleアカウントでログイン</v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+import { mapActions } from "vuex";
 
-  export default {
-    name: 'Home',
-
-    components: {
-      HelloWorld,
-    },
-  }
+export default {
+  methods: {
+    ...mapActions(["login"]),
+  },
+};
 </script>
