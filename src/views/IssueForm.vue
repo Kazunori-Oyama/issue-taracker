@@ -235,11 +235,18 @@ export default {
 
   methods: {
     submit() {
-      this.addIssue(this.issue);
+      if (this.$route.params.issue_id) {
+        this.updateIssue({
+          id: this.$route.params.issue_id,
+          issue: this.issue,
+        });
+      } else {
+        this.addIssue(this.issue);
+      }
       this.$router.push({ name: "Issues" });
       this.issue = {};
     },
-    ...mapActions(["addIssue"]),
+    ...mapActions(["addIssue", "updateIssue"]),
   },
 };
 </script>

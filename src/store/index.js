@@ -24,6 +24,14 @@ export default new Vuex.Store({
       issue.id = id;
       state.issues.push(issue);
     },
+    updateIssue(state, { id, issue }) {
+      const index = state.issues.findIndex((issue) => issue.id === id);
+      state.issues[index] = issue;
+    },
+    deleteIssue(state, { id }) {
+      const index = state.issues.findIndex((issue) => issue.id === id);
+      state.issues.splice(index, 1);
+    },
   },
   actions: {
     setLoginUser({ commit }, user) {
@@ -63,6 +71,30 @@ export default new Vuex.Store({
             commit("addIssue", { id: doc.id, issue });
           });
         commit("addIssue", issue);
+      }
+    },
+    updateIssue({ getters, commit }, { id, issue }) {
+      if (getters.uid) {
+        firebase
+          .firestore()
+          .collection(`users/${getters.uid}/issues`)
+          .doc(id)
+          .update(issue)
+          .then(() => {
+            commit("updateIssue", { id, issue });
+          });
+      }
+    },
+    deleteIssue({ getters, commit }, { id }) {
+      if (getters.uid) {
+        firebase
+          .firestore()
+          .collection(`users/${getters.uid}/issues`)
+          .doc(id)
+          .delete()
+          .then(() => {
+            commit("deleteIssue", { id });
+          });
       }
     },
   },

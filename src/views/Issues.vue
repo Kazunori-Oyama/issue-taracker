@@ -19,34 +19,9 @@
             >
               <v-icon small class="mr-2">mdi-pencil</v-icon>
             </router-link>
-            <!-- <td class="text-xs-left">{{ props.item.issueName }}</td>
-            <td class="text-xs-left">{{ props.item.issueDetail }}</td>
-            <td class="text-xs-left">{{ props.item.shareState }}</td>
-            <td class="text-xs-left">{{ props.item.taskVolume }}</td>
-            <td class="text-xs-left">{{ props.item.effectivity }}</td>
-            <td class="text-xs-left">{{ props.item.priority }}</td>
-            <td class="text-xs-left">{{ props.item.status }}</td>
-            <td class="text-xs-left">{{ props.item.incharge }}</td>
-            <td class="text-xs-left">{{ props.item.executeDate }}</td>
-            <td class="text-xs-left">{{ props.item.retroDate }}</td>
-            <td class="text-xs-left">{{ props.item.issuePoint }}</td>
-            <td class="text-xs-left">{{ props.item.solution }}</td>
-            <td class="text-xs-left">{{ props.item.expect }}</td>
-            <td class="text-xs-left">{{ props.item.memo }}</td>
-            <td class="text-xs-left">{{ props.item.direction }}</td>
-            <td class="text-xs-left">{{ props.item.result }}</td>
-            <td class="text-xs-left">
-              <span>
-                <router-link
-                  :to="{
-                    name: 'issue_edit',
-                    params: { issue_id: props.item.id },
-                  }"
-                >
-                  <v-icon small class="mr-2">edit</v-icon>
-                </router-link>
-              </span>
-            </td> -->
+            <v-icon small class="mr-2" @click="deleteConfirm(item.id)"
+              >mdi-delete</v-icon
+            >
           </template>
         </v-data-table>
       </v-flex>
@@ -55,6 +30,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   created() {
     this.issues = this.$store.state.issues;
@@ -81,6 +57,14 @@ export default {
       ],
       issues: [],
     };
+  },
+  methods: {
+    deleteConfirm(id) {
+      if (confirm("削除してよろしいですか？")) {
+        this.deleteIssue({ id });
+      }
+    },
+    ...mapActions(["deleteIssue"]),
   },
 };
 </script>
