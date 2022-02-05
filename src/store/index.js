@@ -25,14 +25,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    deleteLoginUer({ commit }) {
-      commit("deleteLoginUser");
-    },
     setLoginUser({ commit }, user) {
       commit("setLoginUser", user);
     },
     logout() {
       firebase.auth().signOut();
+    },
+    deleteLoginUser({ commit }) {
+      commit("deleteLoginUser");
     },
     login() {
       const google_auth_provider = new firebase.auth.GoogleAuthProvider();
@@ -44,6 +44,10 @@ export default new Vuex.Store({
     addIssue({ commit }, issue) {
       commit("addIssue", issue);
     },
+  },
+  getters: {
+    userName: (state) => (state.login_user ? state.login_user.displayName : ""),
+    photoURL: (state) => (state.login_user ? state.login_user.photoURL : ""),
   },
   modules: {},
 });

@@ -1,13 +1,17 @@
 <template>
   <v-app>
     <v-app-bar app color="indigo darken-4" flat dark>
-      <v-app-bar-nav-icon @click.stop="toggleSideMenu"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        v-show="$store.state.login_user"
+        @click.stop="toggleSideMenu"
+      ></v-app-bar-nav-icon>
       <v-toolbar-title>Issue Tracker</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-items>
+      <v-toolbar-items v-if="$store.state.login_user">
         <v-btn @click="logout">ログアウト</v-btn></v-toolbar-items
       >
     </v-app-bar>
+
     <SideNav></SideNav>
 
     <v-main fluid fill-height align-start>
@@ -31,8 +35,11 @@ export default {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setLoginUser(user);
+        if (this.$router.currentRoute.name === "Home")
+          this.$router.push({ name: "Issues" });
       } else {
         this.deleteLoginUser();
+        this.$router.push({ name: "Home" });
       }
     });
   },

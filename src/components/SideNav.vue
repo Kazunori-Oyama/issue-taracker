@@ -3,12 +3,10 @@
     <v-list>
       <v-list-item>
         <v-list-item-avatar>
-          <img
-            src="https://avatars2.githubusercontent.com/u/1363954?s=460&v=4"
-          />
+          <img v-if="photoURL" :src="photoURL" />
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>Kazuya Kojima</v-list-item-title>
+          <v-list-item-title>{{ userName }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -25,14 +23,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       items: [
-        { title: "ホーム", icon: "mdi-home", link: { name: "Home" } },
         { title: "施策一覧", icon: "mdi-menu", link: { name: "Issues" } },
       ],
     };
+  },
+  computed: {
+    ...mapGetters(["userName", "photoURL"]),
   },
 };
 </script>
