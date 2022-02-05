@@ -27,7 +27,7 @@
             <td class="text-xs-left">{{ props.item.issuePoint }}</td>
             <td class="text-xs-left">{{ props.item.solution }}</td>
             <td class="text-xs-left">{{ props.item.expect }}</td>
-            <td class="text-xs-left">{{ props.item.memos }}</td>
+            <td class="text-xs-left">{{ props.item.memo }}</td>
             <td class="text-xs-left">{{ props.item.direction }}</td>
             <td class="text-xs-left">{{ props.item.result }}</td>
           </template>
@@ -52,12 +52,12 @@ export default {
         { text: "優先度", value: "priority" },
         { text: "実施状況", value: "status" },
         { text: "担当", value: "incharge" },
-        { text: "実施日", value: "excuteDate" },
+        { text: "実施日", value: "executeDate" },
         { text: "振り返り日", value: "retroDate" },
         { text: "課題概要", value: "issueDetail" },
         { text: "解決方法", value: "solution" },
         { text: "期待", value: "expect" },
-        { text: "メモ", value: "memos" },
+        { text: "メモ", value: "memo" },
         { text: "実施方針", value: "direction" },
         { text: "結果", value: "result" },
       ],

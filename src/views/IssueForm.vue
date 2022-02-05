@@ -73,7 +73,7 @@
 
               <v-dialog
                 ref="dialog"
-                v-model="executeDateModal"
+                v-model="issue.executeDateModal"
                 :return-value.sync="executeDate"
                 persistent
                 width="290px"
@@ -104,7 +104,7 @@
 
               <v-dialog
                 ref="dialog2"
-                v-model="retroDateModal"
+                v-model="issue.retroDateModal"
                 :return-value.sync="retroDate"
                 persistent
                 width="290px"

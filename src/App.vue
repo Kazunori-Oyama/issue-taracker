@@ -35,6 +35,7 @@ export default {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setLoginUser(user);
+        this.fetchIssues();
         if (this.$router.currentRoute.name === "Home")
           this.$router.push({ name: "Issues" });
       } else {
@@ -52,6 +53,7 @@ export default {
       "setLoginUser",
       "logout",
       "deleteLoginUser",
+      "fetchIssues",
     ]),
   },
 };

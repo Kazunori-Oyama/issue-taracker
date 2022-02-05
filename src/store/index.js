@@ -34,6 +34,15 @@ export default new Vuex.Store({
     deleteLoginUser({ commit }) {
       commit("deleteLoginUser");
     },
+    fetchIssues({ getters, commit }) {
+      firebase
+        .firestore()
+        .collection(`users/${getters.uid}/issues`)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => commit("addIssue", doc.data()));
+        });
+    },
     login() {
       const google_auth_provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithRedirect(google_auth_provider);
@@ -41,13 +50,19 @@ export default new Vuex.Store({
     toggleSideMenu({ commit }) {
       commit("toggleSideMenu");
     },
-    addIssue({ commit }, issue) {
+    addIssue({ getters, commit }, issue) {
+      if (getters.uid)
+        firebase
+          .firestore()
+          .collection(`users/${getters.uid}/issues`)
+          .add(issue);
       commit("addIssue", issue);
     },
   },
   getters: {
     userName: (state) => (state.login_user ? state.login_user.displayName : ""),
     photoURL: (state) => (state.login_user ? state.login_user.photoURL : ""),
+    uid: (state) => (state.login_user ? state.login_user.uid : null),
   },
   modules: {},
 });
