@@ -20,7 +20,8 @@ export default new Vuex.Store({
     toggleSideMenu(state) {
       state.drawer = !state.drawer;
     },
-    addIssue(state, issue) {
+    addIssue(state, { id, issue }) {
+      issue.id = id;
       state.issues.push(issue);
     },
   },
@@ -40,7 +41,9 @@ export default new Vuex.Store({
         .collection(`users/${getters.uid}/issues`)
         .get()
         .then((snapshot) => {
-          snapshot.forEach((doc) => commit("addIssue", doc.data()));
+          snapshot.forEach((doc) =>
+            commit("addIssue", { id: doc.id, issue: doc.data() })
+          );
         });
     },
     login() {
@@ -51,18 +54,24 @@ export default new Vuex.Store({
       commit("toggleSideMenu");
     },
     addIssue({ getters, commit }, issue) {
-      if (getters.uid)
+      if (getters.uid) {
         firebase
           .firestore()
           .collection(`users/${getters.uid}/issues`)
-          .add(issue);
-      commit("addIssue", issue);
+          .add(issue)
+          .then((doc) => {
+            commit("addIssue", { id: doc.id, issue });
+          });
+        commit("addIssue", issue);
+      }
     },
   },
   getters: {
     userName: (state) => (state.login_user ? state.login_user.displayName : ""),
     photoURL: (state) => (state.login_user ? state.login_user.photoURL : ""),
     uid: (state) => (state.login_user ? state.login_user.uid : null),
+    getIssueById: (state) => (id) =>
+      state.issues.find((issue) => issue.id === id),
   },
   modules: {},
 });

@@ -203,6 +203,15 @@
 <script>
 import { mapActions } from "vuex";
 export default {
+  created() {
+    if (!this.$route.params.issue_id) return;
+    const issue = this.$store.getters.getIssueById(this.$route.params.issue_id);
+    if (issue) {
+      this.issue = issue;
+    } else {
+      this.$router.push({ name: "issues" });
+    }
+  },
   data() {
     return {
       shareStates: ["未共有", "共有済み", "議論済み"],
@@ -223,6 +232,7 @@ export default {
       issue: {},
     };
   },
+
   methods: {
     submit() {
       this.addIssue(this.issue);

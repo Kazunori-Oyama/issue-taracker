@@ -7,14 +7,19 @@
 
       <v-flex xs12 mt-5 mr-5 text-right>
         <router-link :to="{ name: 'issue_edit' }">
-          <v-btn color="info"> 課題追加 </v-btn>
+          <v-btn color="info">課題追加</v-btn>
         </router-link>
       </v-flex>
 
       <v-flex xs12 mt-3 justify-center>
         <v-data-table :headers="headers" :items="issues">
-          <template v-slot:items="props">
-            <td class="text-xs-left">{{ props.item.issueName }}</td>
+          <template v-slot:item.action="{ item }">
+            <router-link
+              :to="{ name: 'issue_edit', params: { issue_id: item.id } }"
+            >
+              <v-icon small class="mr-2">mdi-pencil</v-icon>
+            </router-link>
+            <!-- <td class="text-xs-left">{{ props.item.issueName }}</td>
             <td class="text-xs-left">{{ props.item.issueDetail }}</td>
             <td class="text-xs-left">{{ props.item.shareState }}</td>
             <td class="text-xs-left">{{ props.item.taskVolume }}</td>
@@ -30,6 +35,18 @@
             <td class="text-xs-left">{{ props.item.memo }}</td>
             <td class="text-xs-left">{{ props.item.direction }}</td>
             <td class="text-xs-left">{{ props.item.result }}</td>
+            <td class="text-xs-left">
+              <span>
+                <router-link
+                  :to="{
+                    name: 'issue_edit',
+                    params: { issue_id: props.item.id },
+                  }"
+                >
+                  <v-icon small class="mr-2">edit</v-icon>
+                </router-link>
+              </span>
+            </td> -->
           </template>
         </v-data-table>
       </v-flex>
@@ -60,9 +77,15 @@ export default {
         { text: "メモ", value: "memo" },
         { text: "実施方針", value: "direction" },
         { text: "結果", value: "result" },
+        { text: "操作", value: "action", sortable: false },
       ],
       issues: [],
     };
   },
 };
 </script>
+<style scoped lang="scss">
+a {
+  text-decoration: none;
+}
+</style>
