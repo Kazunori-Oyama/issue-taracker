@@ -2,7 +2,7 @@
   <v-container text-xs-center justify-center>
     <v-layout row wrap>
       <v-flex xs12>
-        <h1>マーケティング課題リスト</h1>
+        <h1>課題リスト</h1>
       </v-flex>
 
       <v-flex xs12 mt-5 mr-5 text-right>
