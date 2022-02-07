@@ -23,37 +23,47 @@
           </template>
       </v-data-table>-->
       <v-flex xs12 mt-3 justify-center>
-        <v-card mt-12 v-for="issue in issues" :key="issue.issue_id">
-          <div class="my-9" />
-          <v-card-title>{{issue.issueName}}</v-card-title>
-          <div class="text-left">
-            <v-chip small text-small class="ma-2" color="indigo" text-color="white">
-              <v-avatar small left>
-                <v-icon small>mdi-account-circle</v-icon>
-              </v-avatar>
-              {{issue.incharge}}
-            </v-chip>
-            <v-chip small text-small class="ma-2" color="indigo" text-color="white">
-              <v-avatar small left>
-                <v-icon small>mdi-run-fast</v-icon>
-              </v-avatar>
-              {{issue.priority}}
-            </v-chip>
-            <v-chip small text-small class="ma-2" color="indigo" text-color="white">
-              <v-avatar small left>
-                <v-icon small>mdi-diamond-stone</v-icon>
-              </v-avatar>
-              {{issue.effectivity}}
-            </v-chip>
-          </div>
-          <v-card-text>
-            <div class="my-4 text-subtitle-1">{{issue.solution}}</div>
-          </v-card-text>
-
-          <router-link :to="{ name: 'issue_edit', params: { issue_id: issue.id } }">
-            <v-icon small class="mr-2">mdi-pencil</v-icon>
-          </router-link>
-          <v-icon small class="mr-2" @click="deleteConfirm(issue.id)">mdi-delete</v-icon>
+        <v-card v-for="issue in issues" :key="issue.issue_id" class="mt-12">
+          <v-container>
+            <v-row class="indigo darken-4">
+              <v-col class="d-flex flex-row-reverse">
+                <router-link
+                  :to="{ name: 'issue_edit', params: { issue_id: issue.id } }"
+                  class="white--text"
+                >
+                  <v-icon small class="mr-2" color="white">mdi-pencil</v-icon>
+                </router-link>
+                <v-icon small class="mr-2" color="white" @click="deleteConfirm(issue.id)">mdi-delete</v-icon>
+              </v-col>
+            </v-row>
+            <v-card-title>{{issue.issueName}}</v-card-title>
+            <v-card-text>
+              <v-chip-group column>
+                <v-chip small outlined text-small class="mr-2" color="indigo" text-color="indigo">
+                  <v-avatar small left>
+                    <v-icon small>mdi-account-circle</v-icon>
+                  </v-avatar>
+                  {{issue.incharge}}
+                </v-chip>
+                <v-chip small text-small outlined class="mr-2" color="indigo" text-color="indigo">
+                  <v-avatar small left>
+                    <v-icon small>mdi-run-fast</v-icon>
+                  </v-avatar>
+                  {{issue.priority}}
+                </v-chip>
+                <v-chip small text-small outlined class="mr-2" color="indigo" text-color="indigo">
+                  <v-avatar small left>
+                    <v-icon small>mdi-diamond-stone</v-icon>
+                  </v-avatar>
+                  {{issue.effectivity}}
+                </v-chip>
+              </v-chip-group>
+            </v-card-text>
+            <v-card-text>
+              <div class="my-4 text-subtitle-1">{{issue.solution}}</div>
+              <div class="my-4 text-subtitle-1">{{issue.expect}}</div>
+            </v-card-text>
+          </v-container>
         </v-card>
       </v-flex>
     </v-layout>
@@ -71,17 +81,17 @@ export default {
       loading: false,
       selection: 1,
       headers: [
-        { text: "課題タイトル", value: "issueName" },
+        { text: "課題タイトル", value: "issueName" }, //ToDo:追加済み
         { text: "共有状況", value: "shareState" },
         { text: "作業ボリューム", value: "taskVolume" },
-        { text: "効果見込み", value: "effectivity" },
-        { text: "優先度", value: "priority" },
+        { text: "効果見込み", value: "effectivity" }, //ToDo:追加済み
+        { text: "優先度", value: "priority" }, //ToDo:追加済み
         { text: "実施状況", value: "status" },
-        { text: "担当", value: "incharge" },
+        { text: "担当", value: "incharge" }, //ToDo:追加済み
         { text: "実施日", value: "executeDate" },
         { text: "振り返り日", value: "retroDate" },
         { text: "課題概要", value: "issueDetail" },
-        { text: "解決方法", value: "solution" },
+        { text: "解決方法", value: "solution" }, //ToDo:追加済み
         { text: "期待", value: "expect" },
         { text: "メモ", value: "memo" },
         { text: "実施方針", value: "direction" },
