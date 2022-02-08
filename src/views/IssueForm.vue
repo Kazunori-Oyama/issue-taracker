@@ -58,14 +58,20 @@
               <v-dialog
                 ref="dialog"
                 v-model="issue.executeDateModal"
-                :return-value.sync="executeDate"
+                :return-value.sync="issue.executeDate"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
-                  <v-text-field v-model="executeDate" label="実施日" readonly v-bind="attrs" v-on="on"></v-text-field>
+                  <v-text-field
+                    v-model="issue.executeDate"
+                    label="実施日"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
                 </template>
-                <v-date-picker v-model="executeDate" scrollable>
+                <v-date-picker v-model="issue.executeDate" scrollable>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="executeDateModal = false">Cancel</v-btn>
                   <v-btn text color="primary" @click="$refs.dialog.save(executeDate)">OK</v-btn>
@@ -75,14 +81,20 @@
               <v-dialog
                 ref="dialog2"
                 v-model="issue.retroDateModal"
-                :return-value.sync="retroDate"
+                :return-value.sync="issue.retroDate"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
-                  <v-text-field v-model="retroDate" label="振り返り日" readonly v-bind="attrs" v-on="on"></v-text-field>
+                  <v-text-field
+                    v-model="issue.retroDate"
+                    label="振り返り日"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
                 </template>
-                <v-date-picker v-model="retroDate" scrollable>
+                <v-date-picker v-model="issue.retroDate" scrollable>
                   <v-spacer></v-spacer>
                   <v-btn text color="primary" @click="retroDateModal = false">Cancel</v-btn>
                   <v-btn text color="primary" @click="$refs.dialog2.save(retroDate)">OK</v-btn>
