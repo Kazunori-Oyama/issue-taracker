@@ -70,6 +70,7 @@ export default new Vuex.Store({
           .then((doc) => {
             commit("addIssue", { id: doc.id, issue });
           });
+      } else {
         commit("addIssue", issue);
       }
     },

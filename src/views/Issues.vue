@@ -91,7 +91,7 @@
               </v-chip-group>
             </v-card-text>
             <v-card-text>
-              <div class="my-4 text-subtitle-1">課題概要：{{issueDetail}}</div>
+              <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
               <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
               <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
               <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
