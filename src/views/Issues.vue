@@ -4,12 +4,6 @@
       <v-flex xs12>
         <h1>課題リスト</h1>
       </v-flex>
-
-      <v-flex xs12 mt-5 mr-5 text-right>
-        <router-link :to="{ name: 'issue_edit' }">
-          <v-btn color="info">課題追加</v-btn>
-        </router-link>
-      </v-flex>
       <template>
         <v-col xs12>
           <v-card>
@@ -187,12 +181,12 @@
                 </v-card>
               </v-tab-item>
             </v-tabs-items>
+            <v-btn class="mx-2" fab fixed bottom right color="indigo white--text">
+              <router-link :to="{ name: 'issue_edit' }">
+                <v-icon color="#fff">mdi-plus</v-icon>
+              </router-link>
+            </v-btn>
           </v-card>
-          <v-btn class="mx-2" fab dark absolute fixed bottom right color="indigo">
-            <router-link :to="{ name: 'issue_edit' }">
-              <v-icon dark>mdi-plus</v-icon>
-            </router-link>
-          </v-btn>
         </v-col>
       </template>
 
