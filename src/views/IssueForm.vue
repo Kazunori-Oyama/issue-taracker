@@ -51,8 +51,26 @@
                 </template>
               </v-slider>
 
-              <v-text-field v-model="issue.priority" label="優先度"></v-text-field>
-              <v-text-field v-model="issue.status" label="実施状況"></v-text-field>
+              <v-subheader>優先度</v-subheader>
+              <v-slider
+                v-model="issue.priority"
+                class="align-center"
+                :max="max"
+                :min="min"
+                hide-details
+              >
+                <template v-slot:append>
+                  <v-text-field
+                    v-model="issue.priority"
+                    class="mt-0 pt-0"
+                    hide-details
+                    single-line
+                    type="number"
+                    style="width: 60px"
+                  ></v-text-field>
+                </template>
+              </v-slider>
+              <v-select :items="status" v-model="issue.status" label="実施状況"></v-select>
               <v-text-field v-model="issue.incharge" label="担当者"></v-text-field>
 
               <v-dialog
@@ -181,6 +199,14 @@ export default {
   data() {
     return {
       shareStates: ["未共有", "共有済み", "議論済み"],
+      status: [
+        "未検討",
+        "事前調査",
+        "検討中",
+        "実施中",
+        "実施済",
+        "実施しない"
+      ],
 
       min: 0,
       max: 6,
