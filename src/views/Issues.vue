@@ -33,152 +33,604 @@
 
             <v-tabs-items v-model="tab">
               <v-tab-item v-for="i in 4" :key="i" :value="'tab-' + i">
-                <v-card
-                  elevation="3"
-                  v-for="issue in issues"
-                  :key="issue.issue_id"
-                  class="mt-12 mr-9 ml-9 grey--text text--darken-4"
-                >
-                  <v-col class="grey lighten-5">
-                    <v-row :align-self="align">
-                      <v-col cols="11">
-                        <v-card-title>{{issue.issueName}}</v-card-title>
+                <!-- １つ目のタブ(i=1)のときは、issue.statusが"実施中","実施済","実施しない" のいずれでもない-->
+                <!-- 2つ目のタブ(i=2)のときは、issue.statusが"実施中"-->
+                <!-- 3つ目のタブ(i=3)のときは、issue.statusが実施済"-->
+                <!-- 4つ目のタブ(i=4)のときは、issue.statusが検証済み"-->
+                <template v-for="issue in issues">
+                  <template v-if="i=== 1">
+                    <template
+                      v-if="issue.status === '未検討' || issue.status === '事前調査' ||issue.status === '検討中'"
+                    >
+                      <v-card
+                        elevation="3"
+                        :key="issue.issue_id"
+                        class="mt-12 mr-9 ml-9 grey--text text--darken-4"
+                      >
+                        <v-col class="grey lighten-5">
+                          <v-row :align-self="align">
+                            <v-col cols="11">
+                              <v-card-title>{{issue.issueName}}</v-card-title>
+                              <v-card-text>
+                                <v-chip-group column>
+                                  <v-chip
+                                    small
+                                    text-small
+                                    outlined
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-bullhorn-outline</v-icon>
+                                    </v-avatar>
+                                    {{issue.shareState}}
+                                  </v-chip>
+                                  <v-chip
+                                    small
+                                    text-small
+                                    outlined
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-scale</v-icon>
+                                    </v-avatar>
+                                    {{issue.taskVolume}}
+                                  </v-chip>
+                                  <v-chip
+                                    small
+                                    text-small
+                                    outlined
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-diamond-stone</v-icon>
+                                    </v-avatar>
+                                    {{issue.effectivity}}
+                                  </v-chip>
+
+                                  <v-chip
+                                    small
+                                    outlined
+                                    text-small
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-account-circle</v-icon>
+                                    </v-avatar>
+                                    {{issue.incharge}}
+                                  </v-chip>
+                                  <v-chip
+                                    small
+                                    text-small
+                                    outlined
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-run-fast</v-icon>
+                                    </v-avatar>
+                                    {{issue.priority}}
+                                  </v-chip>
+                                  <v-chip
+                                    small
+                                    text-small
+                                    outlined
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-progress-check</v-icon>
+                                    </v-avatar>
+                                    {{issue.status}}
+                                  </v-chip>
+                                  <v-chip
+                                    small
+                                    text-small
+                                    outlined
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-calendar-clock-outline</v-icon>
+                                    </v-avatar>
+                                    {{issue.executeDate}}
+                                  </v-chip>
+                                  <v-chip
+                                    small
+                                    text-small
+                                    outlined
+                                    class="mr-2"
+                                    color="indigo"
+                                    text-color="indigo"
+                                  >
+                                    <v-avatar small left>
+                                      <v-icon small>mdi-calendar-check-outline</v-icon>
+                                    </v-avatar>
+                                    {{issue.retroDate}}
+                                  </v-chip>
+                                </v-chip-group>
+                              </v-card-text>
+                            </v-col>
+                            <v-col cols="1" class="d-flex align-center">
+                              <router-link
+                                :to="{ name: 'issue_edit', params: { issue_id: issue.id } }"
+                                class="indigo--text text--darken-4"
+                              >
+                                <v-icon small class="mr-2" color="indigo">mdi-pencil</v-icon>
+                              </router-link>
+                              <v-icon
+                                small
+                                class="mr-2"
+                                color="indigo darken-4"
+                                @click="deleteConfirm(issue.id)"
+                              >mdi-delete</v-icon>
+                            </v-col>
+                          </v-row>
+                        </v-col>
+
                         <v-card-text>
-                          <v-chip-group column>
-                            <v-chip
-                              small
-                              text-small
-                              outlined
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-bullhorn-outline</v-icon>
-                              </v-avatar>
-                              {{issue.shareState}}
-                            </v-chip>
-                            <v-chip
-                              small
-                              text-small
-                              outlined
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-scale</v-icon>
-                              </v-avatar>
-                              {{issue.taskVolume}}
-                            </v-chip>
-                            <v-chip
-                              small
-                              text-small
-                              outlined
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-diamond-stone</v-icon>
-                              </v-avatar>
-                              {{issue.effectivity}}
-                            </v-chip>
-
-                            <v-chip
-                              small
-                              outlined
-                              text-small
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-account-circle</v-icon>
-                              </v-avatar>
-                              {{issue.incharge}}
-                            </v-chip>
-                            <v-chip
-                              small
-                              text-small
-                              outlined
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-run-fast</v-icon>
-                              </v-avatar>
-                              {{issue.priority}}
-                            </v-chip>
-                            <v-chip
-                              small
-                              text-small
-                              outlined
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-progress-check</v-icon>
-                              </v-avatar>
-                              {{issue.status}}
-                            </v-chip>
-                            <v-chip
-                              small
-                              text-small
-                              outlined
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-calendar-clock-outline</v-icon>
-                              </v-avatar>
-                              {{issue.executeDate}}
-                            </v-chip>
-                            <v-chip
-                              small
-                              text-small
-                              outlined
-                              class="mr-2"
-                              color="indigo"
-                              text-color="indigo"
-                            >
-                              <v-avatar small left>
-                                <v-icon small>mdi-calendar-check-outline</v-icon>
-                              </v-avatar>
-                              {{issue.retroDate}}
-                            </v-chip>
-                          </v-chip-group>
+                          <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                          <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                          <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                          <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                          <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                          <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
                         </v-card-text>
-                      </v-col>
-                      <v-col cols="1" class="d-flex align-center">
-                        <router-link
-                          :to="{ name: 'issue_edit', params: { issue_id: issue.id } }"
-                          class="indigo--text text--darken-4"
-                        >
-                          <v-icon small class="mr-2" color="indigo">mdi-pencil</v-icon>
-                        </router-link>
-                        <v-icon
-                          small
-                          class="mr-2"
-                          color="indigo darken-4"
-                          @click="deleteConfirm(issue.id)"
-                        >mdi-delete</v-icon>
-                      </v-col>
-                    </v-row>
-                  </v-col>
+                      </v-card>
+                    </template>
+                  </template>
+                  <template v-if="i===2 && issue.status==='実施中'">
+                    <v-card
+                      elevation="3"
+                      :key="issue.issue_id"
+                      class="mt-12 mr-9 ml-9 grey--text text--darken-4"
+                    >
+                      <v-col class="grey lighten-5">
+                        <v-row :align-self="align">
+                          <v-col cols="11">
+                            <v-card-title>{{issue.issueName}}</v-card-title>
+                            <v-card-text>
+                              <v-chip-group column>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-bullhorn-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.shareState}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-scale</v-icon>
+                                  </v-avatar>
+                                  {{issue.taskVolume}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-diamond-stone</v-icon>
+                                  </v-avatar>
+                                  {{issue.effectivity}}
+                                </v-chip>
 
-                  <v-card-text>
-                    <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
-                    <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
-                    <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
-                    <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
-                    <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
-                    <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
-                  </v-card-text>
-                </v-card>
+                                <v-chip
+                                  small
+                                  outlined
+                                  text-small
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-account-circle</v-icon>
+                                  </v-avatar>
+                                  {{issue.incharge}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-run-fast</v-icon>
+                                  </v-avatar>
+                                  {{issue.priority}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-progress-check</v-icon>
+                                  </v-avatar>
+                                  {{issue.status}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-calendar-clock-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.executeDate}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-calendar-check-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.retroDate}}
+                                </v-chip>
+                              </v-chip-group>
+                            </v-card-text>
+                          </v-col>
+                          <v-col cols="1" class="d-flex align-center">
+                            <router-link
+                              :to="{ name: 'issue_edit', params: { issue_id: issue.id } }"
+                              class="indigo--text text--darken-4"
+                            >
+                              <v-icon small class="mr-2" color="indigo">mdi-pencil</v-icon>
+                            </router-link>
+                            <v-icon
+                              small
+                              class="mr-2"
+                              color="indigo darken-4"
+                              @click="deleteConfirm(issue.id)"
+                            >mdi-delete</v-icon>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+
+                      <v-card-text>
+                        <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                        <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                        <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                        <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                        <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                        <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
+                      </v-card-text>
+                    </v-card>
+                  </template>
+                  <template v-if="i===3 && issue.status==='実施済'">
+                    <v-card
+                      elevation="3"
+                      :key="issue.issue_id"
+                      class="mt-12 mr-9 ml-9 grey--text text--darken-4"
+                    >
+                      <v-col class="grey lighten-5">
+                        <v-row :align-self="align">
+                          <v-col cols="11">
+                            <v-card-title>{{issue.issueName}}</v-card-title>
+                            <v-card-text>
+                              <v-chip-group column>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-bullhorn-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.shareState}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-scale</v-icon>
+                                  </v-avatar>
+                                  {{issue.taskVolume}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-diamond-stone</v-icon>
+                                  </v-avatar>
+                                  {{issue.effectivity}}
+                                </v-chip>
+
+                                <v-chip
+                                  small
+                                  outlined
+                                  text-small
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-account-circle</v-icon>
+                                  </v-avatar>
+                                  {{issue.incharge}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-run-fast</v-icon>
+                                  </v-avatar>
+                                  {{issue.priority}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-progress-check</v-icon>
+                                  </v-avatar>
+                                  {{issue.status}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-calendar-clock-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.executeDate}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-calendar-check-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.retroDate}}
+                                </v-chip>
+                              </v-chip-group>
+                            </v-card-text>
+                          </v-col>
+                          <v-col cols="1" class="d-flex align-center">
+                            <router-link
+                              :to="{ name: 'issue_edit', params: { issue_id: issue.id } }"
+                              class="indigo--text text--darken-4"
+                            >
+                              <v-icon small class="mr-2" color="indigo">mdi-pencil</v-icon>
+                            </router-link>
+                            <v-icon
+                              small
+                              class="mr-2"
+                              color="indigo darken-4"
+                              @click="deleteConfirm(issue.id)"
+                            >mdi-delete</v-icon>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+
+                      <v-card-text>
+                        <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                        <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                        <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                        <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                        <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                        <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
+                      </v-card-text>
+                    </v-card>
+                  </template>
+                  <template v-if="i===4 && issue.status==='検証済み'">
+                    <v-card
+                      elevation="3"
+                      :key="issue.issue_id"
+                      class="mt-12 mr-9 ml-9 grey--text text--darken-4"
+                    >
+                      <v-col class="grey lighten-5">
+                        <v-row :align-self="align">
+                          <v-col cols="11">
+                            <v-card-title>{{issue.issueName}}</v-card-title>
+                            <v-card-text>
+                              <v-chip-group column>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-bullhorn-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.shareState}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-scale</v-icon>
+                                  </v-avatar>
+                                  {{issue.taskVolume}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-diamond-stone</v-icon>
+                                  </v-avatar>
+                                  {{issue.effectivity}}
+                                </v-chip>
+
+                                <v-chip
+                                  small
+                                  outlined
+                                  text-small
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-account-circle</v-icon>
+                                  </v-avatar>
+                                  {{issue.incharge}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-run-fast</v-icon>
+                                  </v-avatar>
+                                  {{issue.priority}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-progress-check</v-icon>
+                                  </v-avatar>
+                                  {{issue.status}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-calendar-clock-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.executeDate}}
+                                </v-chip>
+                                <v-chip
+                                  small
+                                  text-small
+                                  outlined
+                                  class="mr-2"
+                                  color="indigo"
+                                  text-color="indigo"
+                                >
+                                  <v-avatar small left>
+                                    <v-icon small>mdi-calendar-check-outline</v-icon>
+                                  </v-avatar>
+                                  {{issue.retroDate}}
+                                </v-chip>
+                              </v-chip-group>
+                            </v-card-text>
+                          </v-col>
+                          <v-col cols="1" class="d-flex align-center">
+                            <router-link
+                              :to="{ name: 'issue_edit', params: { issue_id: issue.id } }"
+                              class="indigo--text text--darken-4"
+                            >
+                              <v-icon small class="mr-2" color="indigo">mdi-pencil</v-icon>
+                            </router-link>
+                            <v-icon
+                              small
+                              class="mr-2"
+                              color="indigo darken-4"
+                              @click="deleteConfirm(issue.id)"
+                            >mdi-delete</v-icon>
+                          </v-col>
+                        </v-row>
+                      </v-col>
+
+                      <v-card-text>
+                        <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                        <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                        <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                        <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                        <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                        <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
+                      </v-card-text>
+                    </v-card>
+                  </template>
+                </template>
               </v-tab-item>
             </v-tabs-items>
             <v-btn class="mx-2" fab fixed bottom right color="indigo white--text">
