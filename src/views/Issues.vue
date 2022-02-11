@@ -33,10 +33,6 @@
 
             <v-tabs-items v-model="tab">
               <v-tab-item v-for="i in 4" :key="i" :value="'tab-' + i">
-                <!-- １つ目のタブ(i=1)のときは、issue.statusが"実施中","実施済","実施しない" のいずれでもない-->
-                <!-- 2つ目のタブ(i=2)のときは、issue.statusが"実施中"-->
-                <!-- 3つ目のタブ(i=3)のときは、issue.statusが実施済"-->
-                <!-- 4つ目のタブ(i=4)のときは、issue.statusが検証済み"-->
                 <template v-for="issue in issues">
                   <template v-if="i=== 1">
                     <template
@@ -48,7 +44,7 @@
                         class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                       >
                         <v-col class="grey lighten-5">
-                          <v-row :align-self="align">
+                          <v-row>
                             <v-col cols="11">
                               <v-card-title>{{issue.issueName}}</v-card-title>
                               <v-card-text>
@@ -196,7 +192,7 @@
                       class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                     >
                       <v-col class="grey lighten-5">
-                        <v-row :align-self="align">
+                        <v-row>
                           <v-col cols="11">
                             <v-card-title>{{issue.issueName}}</v-card-title>
                             <v-card-text>
@@ -343,7 +339,7 @@
                       class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                     >
                       <v-col class="grey lighten-5">
-                        <v-row :align-self="align">
+                        <v-row>
                           <v-col cols="11">
                             <v-card-title>{{issue.issueName}}</v-card-title>
                             <v-card-text>
@@ -490,7 +486,7 @@
                       class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                     >
                       <v-col class="grey lighten-5">
-                        <v-row :align-self="align">
+                        <v-row>
                           <v-col cols="11">
                             <v-card-title>{{issue.issueName}}</v-card-title>
                             <v-card-text>
