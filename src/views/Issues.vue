@@ -30,10 +30,46 @@
                 <v-icon>mdi-chart-line</v-icon>
               </v-tab>
             </v-tabs>
-
+            <v-container>
+              <v-row class="d-flex justify-center">
+                <v-col class="text-center">
+                  <v-btn
+                    class="ma-2"
+                    outlined
+                    rounded
+                    color="indigo"
+                    @click="sortedItemsByPriority"
+                  >
+                    <v-icon left>mdi-run-fast</v-icon>優先度で並べ替え
+                  </v-btn>
+                </v-col>
+                <v-col class="text-center">
+                  <v-btn
+                    class="ma-2"
+                    outlined
+                    rounded
+                    color="indigo"
+                    @click="sortedItemsByEffectivity"
+                  >
+                    <v-icon left>mdi-diamond-stone</v-icon>効果で並べ替え
+                  </v-btn>
+                </v-col>
+                <v-col class="text-center">
+                  <v-btn
+                    class="ma-2"
+                    outlined
+                    rounded
+                    color="indigo"
+                    @click="sortedItemsByTaskVolume"
+                  >
+                    <v-icon left>mdi-scale</v-icon>作業量で並べ替え
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
             <v-tabs-items v-model="tab">
               <v-tab-item v-for="i in 4" :key="i" :value="'tab-' + i">
-                <template v-for="issue in issues">
+                <template v-for="(issue,index) in issues">
                   <template v-if="i=== 1">
                     <template
                       v-if="issue.status === '未検討' || issue.status === '事前調査' ||issue.status === '検討中'"
@@ -41,6 +77,7 @@
                       <v-card
                         elevation="3"
                         :key="issue.issue_id"
+                        :row-num="'tab-'+ i + '-'+index"
                         class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                       >
                         <v-col class="grey lighten-5">
@@ -189,6 +226,7 @@
                     <v-card
                       elevation="3"
                       :key="issue.issue_id"
+                      :row-num="'tab-'+ i + '-'+index"
                       class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                     >
                       <v-col class="grey lighten-5">
@@ -336,6 +374,7 @@
                     <v-card
                       elevation="3"
                       :key="issue.issue_id"
+                      :row-num="'tab-'+ i + '-'+index"
                       class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                     >
                       <v-col class="grey lighten-5">
@@ -483,6 +522,7 @@
                     <v-card
                       elevation="3"
                       :key="issue.issue_id"
+                      :row-num="'tab-'+ i + '-'+index"
                       class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                     >
                       <v-col class="grey lighten-5">
@@ -660,6 +700,29 @@ export default {
     };
   },
   methods: {
+    sortedItemsByPriority() {
+      return this.issues.sort((a, b) => {
+        return a.priority < b.priority ? 1 : a.priority > b.priority ? -1 : 0; // -1と1を入れ替え
+      });
+    },
+    sortedItemsByEffectivity() {
+      return this.issues.sort((a, b) => {
+        return a.effectivity < b.effectivity
+          ? 1
+          : a.effectivity > b.effectivity
+          ? -1
+          : 0; // -1と1を入れ替え
+      });
+    },
+    sortedItemsByTaskVolume() {
+      return this.issues.sort((a, b) => {
+        return a.taskVolume < b.taskVolume
+          ? 1
+          : a.taskVolume > b.taskVolume
+          ? -1
+          : 0; // -1と1を入れ替え
+      });
+    },
     reserve() {
       this.loading = true;
 
