@@ -72,7 +72,28 @@
               </v-slider>
               <v-select :items="status" v-model="issue.status" label="実施状況"></v-select>
               <v-text-field v-model="issue.incharge" label="担当者"></v-text-field>
-
+              <v-dialog
+                ref="dialog0"
+                v-model="issue.createdDateModal"
+                :return-value.sync="issue.createdDate"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    v-model="issue.createdDate"
+                    label="登録日"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="createdDate" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click="issue.createdDateModal = false">Cancel</v-btn>
+                  <v-btn text color="primary" @click="$refs.dialog0.save(createdDate)">OK</v-btn>
+                </v-date-picker>
+              </v-dialog>
               <v-dialog
                 ref="dialog1"
                 v-model="issue.executeDateModal"
@@ -212,13 +233,16 @@ export default {
       min: 0,
       max: 6,
       slider: 0,
+      createdDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       executeDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
       retroDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-
+      createdDateModal: false,
       executeDateModal: false,
       retroDateModal: false,
 
