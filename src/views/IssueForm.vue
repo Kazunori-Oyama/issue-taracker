@@ -74,7 +74,7 @@
               <v-text-field v-model="issue.incharge" label="担当者"></v-text-field>
 
               <v-dialog
-                ref="dialog"
+                ref="dialog1"
                 v-model="issue.executeDateModal"
                 :return-value.sync="issue.executeDate"
                 persistent
@@ -91,8 +91,8 @@
                 </template>
                 <v-date-picker v-model="executeDate" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="executeDateModal = false">Cancel</v-btn>
-                  <v-btn text color="primary" @click="$refs.dialog.save(executeDate)">OK</v-btn>
+                  <v-btn text color="primary" @click="issue.executeDateModal = false">Cancel</v-btn>
+                  <v-btn text color="primary" @click="$refs.dialog1.save(executeDate)">OK</v-btn>
                 </v-date-picker>
               </v-dialog>
 
@@ -114,7 +114,7 @@
                 </template>
                 <v-date-picker v-model="retroDate" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="retroDateModal = false">Cancel</v-btn>
+                  <v-btn text color="primary" @click="issue.retroDateModal = false">Cancel</v-btn>
                   <v-btn text color="primary" @click="$refs.dialog2.save(retroDate)">OK</v-btn>
                 </v-date-picker>
               </v-dialog>
