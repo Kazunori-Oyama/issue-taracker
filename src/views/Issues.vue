@@ -65,6 +65,17 @@
                     <v-icon left>mdi-scale</v-icon>作業量で並べ替え
                   </v-btn>
                 </v-col>
+                <v-col class="text-center">
+                  <v-btn
+                    class="ma-2"
+                    outlined
+                    rounded
+                    color="indigo"
+                    @click="sortedItemsByCreatedDate"
+                  >
+                    <v-icon left>mdi-scale</v-icon>登録日で並べ替え
+                  </v-btn>
+                </v-col>
               </v-row>
             </v-container>
             <v-tabs-items v-model="tab">
@@ -700,6 +711,16 @@ export default {
     };
   },
   methods: {
+    sortedItemsByCreatedDate() {
+      return this.issues.sort((a, b) => {
+        return a.createdDate < b.createdDate
+          ? 1
+          : a.createdDate > b.createdDate
+          ? -1
+          : 0; // -1と1を入れ替え
+      });
+    },
+
     sortedItemsByPriority() {
       return this.issues.sort((a, b) => {
         return a.priority < b.priority ? 1 : a.priority > b.priority ? -1 : 0; // -1と1を入れ替え
