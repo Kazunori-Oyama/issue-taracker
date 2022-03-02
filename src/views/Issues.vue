@@ -698,6 +698,7 @@ import { mapActions } from "vuex";
 export default {
   created() {
     this.issues = this.$store.state.issues;
+    this.setIssueToggle(this.issues);
   },
   data() {
     return {
@@ -707,10 +708,21 @@ export default {
       tab: null,
       text:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      issueToggle: {},
       issues: []
     };
   },
   methods: {
+    setIssueToggle(issues) {
+      const replace = ["id"];
+      const issueId = JSON.stringify(issues, replace);
+      const issueIdObj = JSON.parse(issueId);
+      const VueInstance = this;
+
+      Object.keys(issueIdObj).forEach(function(key) {
+        VueInstance.$set(VueInstance.issueToggle, issueIdObj[key].id, false);
+      });
+    },
     sortedItemsByCreatedDate() {
       return this.issues.sort((a, b) => {
         return a.createdDate < b.createdDate
