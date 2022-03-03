@@ -88,7 +88,7 @@
                       <v-card
                         elevation="3"
                         :key="issue.issue_id"
-                        :row-num="'tab-'+ i + '-'+index"
+                        :rowNum="issue.issue_id"
                         class="mt-12 mr-9 ml-9 grey--text text--darken-4"
                       >
                         <v-col class="grey lighten-5">
@@ -221,15 +221,29 @@
                             </v-col>
                           </v-row>
                         </v-col>
+                        <v-card-actions>
+                          <v-btn color="orange lighten-2" text>Explore</v-btn>
 
-                        <v-card-text>
-                          <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
-                          <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
-                          <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
-                          <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
-                          <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
-                          <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
-                        </v-card-text>
+                          <v-spacer></v-spacer>
+
+                          <v-btn icon @click="togglePanel(index)">
+                            <v-icon>{{ issueToggle[index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                          </v-btn>
+                        </v-card-actions>
+
+                        <v-expand-transition>
+                          <div v-show="issueToggle[index]">
+                            <v-divider></v-divider>
+                            <v-card-text>
+                              <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                              <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                              <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                              <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                              <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                              <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
+                            </v-card-text>
+                          </div>
+                        </v-expand-transition>
                       </v-card>
                     </template>
                   </template>
@@ -371,14 +385,29 @@
                         </v-row>
                       </v-col>
 
-                      <v-card-text>
-                        <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
-                        <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
-                        <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
-                        <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
-                        <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
-                        <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
-                      </v-card-text>
+                      <v-card-actions>
+                        <v-btn color="orange lighten-2" text>Explore</v-btn>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn icon @click="togglePanel(index)">
+                          <v-icon>{{ issueToggle[index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                        </v-btn>
+                      </v-card-actions>
+
+                      <v-expand-transition>
+                        <div v-show="issueToggle[index]">
+                          <v-divider></v-divider>
+                          <v-card-text>
+                            <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                            <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                            <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                            <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                            <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                            <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
+                          </v-card-text>
+                        </div>
+                      </v-expand-transition>
                     </v-card>
                   </template>
                   <template v-if="i===3 && issue.status==='実施済'">
@@ -519,14 +548,29 @@
                         </v-row>
                       </v-col>
 
-                      <v-card-text>
-                        <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
-                        <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
-                        <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
-                        <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
-                        <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
-                        <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
-                      </v-card-text>
+                      <v-card-actions>
+                        <v-btn color="orange lighten-2" text>Explore</v-btn>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn icon @click="togglePanel(index)">
+                          <v-icon>{{ issueToggle[index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                        </v-btn>
+                      </v-card-actions>
+
+                      <v-expand-transition>
+                        <div v-show="issueToggle[index]">
+                          <v-divider></v-divider>
+                          <v-card-text>
+                            <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                            <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                            <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                            <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                            <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                            <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
+                          </v-card-text>
+                        </div>
+                      </v-expand-transition>
                     </v-card>
                   </template>
                   <template v-if="i===4 && issue.status==='検証済み'">
@@ -667,14 +711,29 @@
                         </v-row>
                       </v-col>
 
-                      <v-card-text>
-                        <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
-                        <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
-                        <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
-                        <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
-                        <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
-                        <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
-                      </v-card-text>
+                      <v-card-actions>
+                        <v-btn color="orange lighten-2" text>Explore</v-btn>
+
+                        <v-spacer></v-spacer>
+
+                        <v-btn icon @click="togglePanel(index)">
+                          <v-icon>{{ issueToggle[index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                        </v-btn>
+                      </v-card-actions>
+
+                      <v-expand-transition>
+                        <div v-show="issueToggle[index]">
+                          <v-divider></v-divider>
+                          <v-card-text>
+                            <div class="my-4 text-subtitle-1">課題概要：{{issue.issueDetail}}</div>
+                            <div class="my-4 text-subtitle-1">期待・学習：{{issue.expect}}</div>
+                            <div class="my-4 text-subtitle-1">解決方法：{{issue.solution}}</div>
+                            <div class="my-4 text-subtitle-1">メモ：{{issue.memo}}</div>
+                            <div class="my-4 text-subtitle-1">実施方針：{{issue.direction}}</div>
+                            <div class="my-4 text-subtitle-1">結果：{{issue.result}}</div>
+                          </v-card-text>
+                        </div>
+                      </v-expand-transition>
                     </v-card>
                   </template>
                 </template>
@@ -715,13 +774,22 @@ export default {
   methods: {
     setIssueToggle(issues) {
       const replace = ["id"];
-      const issueId = JSON.stringify(issues, replace);
-      const issueIdObj = JSON.parse(issueId);
+      const issueIds = JSON.stringify(issues, replace);
+      const issueIdObj = JSON.parse(issueIds);
       const VueInstance = this;
 
-      Object.keys(issueIdObj).forEach(function(key) {
-        VueInstance.$set(VueInstance.issueToggle, issueIdObj[key].id, false);
+      issueIdObj.forEach(function(element, index) {
+        console.log(element);
+        VueInstance.$set(VueInstance.issueToggle, index, false);
       });
+      console.log(this.issueToggle);
+    },
+
+    togglePanel(index) {
+      // const Id = index;
+      this.issueToggle[index] = !this.issueToggle[index];
+      console.log(this.issueToggle[index]);
+      console.log(this.issueToggle);
     },
     sortedItemsByCreatedDate() {
       return this.issues.sort((a, b) => {
