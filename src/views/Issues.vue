@@ -2,7 +2,7 @@
   <v-container fluid text-xs-center justify-center>
     <v-layout row wrap>
       <v-flex xs12>
-        <h1>課題リスト</h1>
+        <h1>課題リストページ</h1>
       </v-flex>
       <template>
         <v-col xs12>
