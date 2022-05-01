@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12>
         <h1>Issue Tracker</h1>
-        <p>Googleアカウントで利用できます。</p>
+        <p>Googleアカウントで利用できます</p>
       </v-flex>
 
       <v-flex xs12 mt-5>
